@@ -3,20 +3,25 @@
 timeout /t 30 /nobreak
 
 :: 2. Ir a la carpeta del proyecto (CAMBIA ESTA RUTA)
-cd /d "C:\Users\TuUsuario\Documents\GitHub\daily-contributions"
+cd /d "C:\Ruta\A\Tu\Proyecto\daily-contributions"
 
-:: 3. Verificar si hay internet haciendo ping a GitHub
+:: 3. Verificar conexión a Internet
 ping -n 1 github.com >nul
 if errorlevel 1 (
-    echo "Sin conexión a internet. Reintentando en 10 segundos..."
+    echo Sin conexion, reintentando...
     timeout /t 10
     goto 2
 )
 
-:: 4. Realizar el cambio y el commit
-echo Ultima contribución: %date% %time% >> log.txt
-git add log.txt
-git commit -m "feat: daily automated contribution %date%"
+:: 4. Bucle para realizar 5 contribuciones
+echo Iniciando rafaga de 5 commits...
+for /l %%x in (1, 1, 5) do (
+    echo Intento %%x el %date% a las %time% >> log.txt
+    git add log.txt
+    git commit -m "feat: daily batch contribution %%x/5 - %date%"
+    timeout /t 1 >nul
+)
 
-:: 5. Push silencioso
+:: 5. Un solo push para subir los 5 commits juntos
 git push origin main
+echo Proceso completado exitosamente.
