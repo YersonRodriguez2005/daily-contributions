@@ -3,7 +3,7 @@
 timeout /t 30 /nobreak
 
 :: 2. Ir a la carpeta del proyecto (CAMBIA ESTA RUTA)
-cd /d "C:\Ruta\A\Tu\Proyecto\daily-contributions"
+cd /d "C:\Users\Acer\Documents\GitHub\daily-contributions"
 
 :: 3. Verificar conexión a Internet
 ping -n 1 github.com >nul
